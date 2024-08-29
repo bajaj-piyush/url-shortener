@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+    body {
+    background-color: #f4f7f4;
+}
+
+.form-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #efeeee;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.url-form {
+    display: flex;
+    align-items: center;
+}
+
+.url-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.url-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex: 1;
+    font-size: 16px;
+}
+
+.generate-button {
+    background-color: #0465f5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.generate-button:hover {
+    background-color: #0e78e3;
+}
+
+table {
+    width: 94%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+}
+
+th {
+    background-color: #333533;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+tr {
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+        </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Url-Shortener</h2>
+    <form method="post" action="/url" class="url-form">
+        <label for="urlInput" class="url-label">Enter the original URL:</label>
+        <input type="url" id="urlInput" name="url" placeholder="https://example.com" required class="url-input">
+        <button type="submit" class="generate-button">Generate</button>
+    </form>
+</div>
+    <% if (locals.id) { %>
+        <h2 style="margin: 3%;">Your generated shortID is localhost:8001/url/<%= id %></h2>
+    <% } %>
+    
+    
+     <% if (locals.urls) { %>
+        <h2 style="margin-top: 3%; margin-left: 3%;">History:- </h2>
+        <table style="margin-left: 3%;">
+        <th>S.no</th>
+        <th>Original Url</th>
+        <th>ShortID</th>
+        <th>Total Clicks</th>
+
+        <tbody>
+            <tr>
+            <% urls.forEach((url,index) => { %>
+             <tr><tr>
+                <td><%=index+1%></td>
+                <td><%=url.redirectUrl%></td>
+                <td><%= url.shortId%></td>
+                <td><%= url.visitsHistory.length %></td>
+             </tr>
+             </tr>
+            <% }) %>
+            </tr>
+        </tbody>
+      </table>
+     <% } %>
+</body>
+</html>
